@@ -1,27 +1,28 @@
-import React from 'react';
+
 import './App.css';
-import TodayCard from './Components/TodayCard/TodayCard';
+
 import Container from 'react-bootstrap/Container';
 import { Col, Row } from 'react-bootstrap';
-import WeatherCard from './Components/WeatherCard/WeatherCard';
+import WeatherCardList from './Components/WeatherCardList/WeatherCardList';
+
+import WeatherComponent from './Components/WeatherComponent/WeatherComponent';
+import { WeatherProvider } from './WeatherContext';
+import Search from './Components/Search/Search';
+import { useState } from 'react';
 
 
 
 function App() {
+
+  const [location, setLocation] = useState<string>('Rzeszow')
+
   return (
   <Container fluid>
     <Row className='justify-content-center mb-5 mt-2'>
-      <TodayCard></TodayCard>
-     
-    </Row>
-    <Row className='justify-content-center mb-5 mt-2'>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
-     <WeatherCard></WeatherCard>
+      <Search onSearch={setLocation} />
+      <WeatherProvider search={location}>
+        <WeatherComponent/>
+      </WeatherProvider>
     </Row>
   </Container>
   );
